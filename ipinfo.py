@@ -44,13 +44,6 @@ def client_ip():
 st.sidebar.header("What's my IP?")
 client_ip = client_ip()
 st.sidebar.subheader(client_ip)
-try:
-    socket.inet_aton(client_ip)
-    client_ip_response = get_ip_info(client_ip)
-    st.sidebar.table(client_ip_response)
-    download_csv(client_ip_response, 'Download as .csv', sidebar=True)
-except socket.error:
-    pass
 
 #   STREALIT MAIN
 
