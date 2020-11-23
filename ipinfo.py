@@ -43,9 +43,10 @@ st.title("IP Info")
 ip = st.text_input("IP to check")
 # Validate the IP
 try:
+
     socket.inet_aton(ip)
-    response = get_ip_info(ip)
     st.markdown(f"**Info for IP: {ip}**")
+    response = get_ip_info(ip)
     st.table(response)
     if response is not None:
         download_csv(response, 'Download as .csv')
