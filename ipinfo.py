@@ -18,6 +18,7 @@ def get_ip_info(ip):
     r = requests.get(f'https://ipinfo.io/{ip}/geo')
     if r:
         response = r.json()
+        st.write(response)
         df = pd.DataFrame(response, index=[0])
         df = df.transpose()
         df.columns = ['']
