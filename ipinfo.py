@@ -9,10 +9,7 @@ def download_csv(df, text, sidebar=False):
     csv = df.to_csv(index=False)
     b64 = base64.b64encode(csv.encode()).decode()
     href = f'<a href="data:file/csv;base64,{b64}" download="ip_info.csv">** {text} **</a>'
-    if sidebar:
-        st.sidebar.markdown(href, unsafe_allow_html=True)
-    else:
-        st.markdown(href, unsafe_allow_html=True)
+    st.markdown(href, unsafe_allow_html=True)
 
 
 
@@ -40,11 +37,6 @@ def client_ip():
 
 ################################## APP ###############################
 
-#   STREAMLIT SIDEBAR
-st.sidebar.header("What's my IP?")
-client_ip = client_ip()
-st.sidebar.subheader(client_ip)
-
 #   STREALIT MAIN
 
 st.title("IP Info")
@@ -55,7 +47,8 @@ try:
     response = get_ip_info(ip)
     st.markdown(f"**Info for IP: {ip}**")
     st.table(response)
-    download_csv(response, 'Download as .csv')
+    if response is not None:
+        download_csv(response, 'Download as .csv')
 except socket.error:
     if ip != '':
         st.subheader("Invalid IP address")
